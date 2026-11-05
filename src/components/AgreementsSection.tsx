@@ -1,4 +1,5 @@
 import React from 'react';
+import logoUlepBlue from '../assets/images/logo_ulep_blue.png';
 
 export default function AgreementsSection() {
   const convenios = [
@@ -25,17 +26,16 @@ export default function AgreementsSection() {
   return (
     <section className="py-8 sm:py-12 relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white/95 backdrop-blur-xs border border-blue-100 rounded-3xl p-6 sm:p-9 shadow-sm hover:shadow-md transition-all duration-300">
+        <div className="bg-white border border-blue-100 rounded-3xl p-6 sm:p-9 shadow-sm hover:shadow-md transition-all duration-300">
           
           {/* Header with Smaller Official Logo Emblem without background box */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-blue-100/80">
             <div className="flex items-center gap-3.5">
-              <div className="h-9 w-24 relative flex items-center justify-center shrink-0 overflow-hidden">
+              <div className="h-9 w-24 relative flex items-center justify-center shrink-0">
                 <img
-                  src="/assets/aistudio/FUN_BLANCO_e68e4ad5.png"
+                  src={logoUlepBlue}
                   alt="Logo Fundación ULEP"
-                  className="w-full h-full object-cover object-center scale-[1.08]"
-                  style={{ filter: 'brightness(0) saturate(100%) invert(13%) sepia(87%) saturate(4648%) hue-rotate(218deg) brightness(91%) contrast(106%)' }}
+                  className="w-full h-full object-contain object-center"
                 />
               </div>
               <div>

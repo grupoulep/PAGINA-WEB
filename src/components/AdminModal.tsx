@@ -13,6 +13,7 @@ import {
   setAdminSession,
   resetAllAdminData,
 } from '../utils/adminStorage';
+import logoUlepWhite from '../assets/images/logo_ulep_white.png';
 
 interface AdminModalProps {
   isOpen: boolean;
@@ -273,11 +274,11 @@ export default function AdminModal({ isOpen, onClose }: AdminModalProps) {
         {/* Top Modal Header (Strictly White & Blues + Smaller Logo) */}
         <div className="bg-[#002477] text-white px-5 sm:px-7 py-4 flex items-center justify-between gap-4 border-b border-blue-800">
           <div className="flex items-center gap-3">
-            <div className="h-7 w-20 relative overflow-hidden flex items-center justify-center shrink-0">
+            <div className="h-7 w-20 relative flex items-center justify-center shrink-0">
               <img
-                src="/assets/aistudio/FUN_BLANCO_e68e4ad5.png"
+                src={logoUlepWhite}
                 alt="Fundación ULEP"
-                className="w-full h-full object-cover object-center scale-[1.08]"
+                className="w-full h-full object-contain object-center"
               />
             </div>
             <div className="border-l border-blue-700 pl-3">

@@ -17,71 +17,20 @@
           host.endsWith('.internal') ||
           host.endsWith('.local');
 
-        // 1. Redirección inmediata y obligatoria de HTTP a HTTPS antes de renderizar
         if (window.location.protocol === 'http:' && !isLocal) {
           document.documentElement.style.display = 'none';
-          var secureUrl =
+          window.location.replace(
             'https://' +
-            window.location.host +
-            window.location.pathname +
-            window.location.search +
-            window.location.hash;
-          window.location.replace(secureUrl);
-          return;
-        }
-
-        // 2. Sanitizador en tiempo real: convierte cualquier recurso http:// a https://
-        function upgradeNodeSecurity(node) {
-          if (!node || node.nodeType !== 1) return;
-          var attrs = ['src', 'href', 'action', 'data'];
-          for (var i = 0; i < attrs.length; i++) {
-            var attr = attrs[i];
-            if (node.hasAttribute && node.hasAttribute(attr)) {
-              var val = node.getAttribute(attr);
-              if (
-                val &&
-                val.indexOf('http://') === 0 &&
-                val.indexOf('http://localhost') !== 0 &&
-                val.indexOf('http://127.0.0.1') !== 0 &&
-                val.indexOf('http://www.w3.org/') !== 0
-              ) {
-                node.setAttribute(attr, 'https://' + val.substring(7));
-              }
-            }
-          }
-        }
-
-        if (typeof MutationObserver !== 'undefined') {
-          var observer = new MutationObserver(function (mutations) {
-            for (var m = 0; m < mutations.length; m++) {
-              var mutation = mutations[m];
-              if (mutation.type === 'attributes') {
-                upgradeNodeSecurity(mutation.target);
-              } else if (mutation.addedNodes && mutation.addedNodes.length) {
-                for (var n = 0; n < mutation.addedNodes.length; n++) {
-                  var added = mutation.addedNodes[n];
-                  upgradeNodeSecurity(added);
-                  if (added && added.querySelectorAll) {
-                    var children = added.querySelectorAll('[src^="http://"], [href^="http://"], [action^="http://"]');
-                    for (var c = 0; c < children.length; c++) {
-                      upgradeNodeSecurity(children[c]);
-                    }
-                  }
-                }
-              }
-            }
-          });
-          observer.observe(document.documentElement, {
-            childList: true,
-            subtree: true,
-            attributes: true,
-            attributeFilter: ['src', 'href', 'action'],
-          });
+              window.location.host +
+              window.location.pathname +
+              window.location.search +
+              window.location.hash
+          );
         }
       })();
     </script>
 
-    <!-- Políticas estrictas de seguridad del navegador (CSP, HSTS, NoSniff, Referrer) -->
+    <!-- Políticas estrictas de seguridad del navegador (CSP nativo C++, HSTS, NoSniff, Referrer) -->
     <meta
       http-equiv="Content-Security-Policy"
       content="upgrade-insecure-requests; block-all-mixed-content; default-src 'self' https: data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' https: data: blob:; connect-src 'self' https: wss:; frame-src 'self' https:; object-src 'none'; base-uri 'self';"
@@ -94,9 +43,11 @@
     <link rel="manifest" href="./manifest.json" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Google Fonts: Montserrat (Gotham Web Equivalent) & Open Sans (fup.edu.co Typography) -->
+    <!-- Preconexiones de alta velocidad para Fuentes, Iconos e Imágenes -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://img.icons8.com" crossorigin />
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,600;1,700&family=Open+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap"
       rel="stylesheet"

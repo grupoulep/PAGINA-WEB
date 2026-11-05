@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { TabType } from '../types';
+import logoUlepBlue from '../assets/images/logo_ulep_blue.png';
 
 interface NavbarProps {
   onJoinClick?: () => void;
@@ -11,20 +12,39 @@ export default function Navbar({ activeTab, onSelectTab }: NavbarProps) {
   const [isVisible, setIsVisible] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const lastScrollY = useRef(0);
+  const isVisibleRef = useRef(true);
+  const ticking = useRef(false);
 
   useEffect(() => {
-    const handleScroll = () => {
+    const updateScroll = () => {
       const currentScrollY = window.scrollY;
-      // Show when near top or scrolling up; hide when scrolling down
+      let nextVisible = isVisibleRef.current;
+
       if (currentScrollY < 30) {
-        setIsVisible(true);
-      } else if (currentScrollY > lastScrollY.current + 6) {
-        setIsVisible(false);
-        setIsMobileMenuOpen(false);
-      } else if (currentScrollY < lastScrollY.current - 6) {
-        setIsVisible(true);
+        nextVisible = true;
+      } else if (currentScrollY > lastScrollY.current + 8) {
+        nextVisible = false;
+      } else if (currentScrollY < lastScrollY.current - 8) {
+        nextVisible = true;
       }
+
+      if (nextVisible !== isVisibleRef.current) {
+        isVisibleRef.current = nextVisible;
+        setIsVisible(nextVisible);
+        if (!nextVisible) {
+          setIsMobileMenuOpen(false);
+        }
+      }
+
       lastScrollY.current = currentScrollY;
+      ticking.current = false;
+    };
+
+    const handleScroll = () => {
+      if (!ticking.current) {
+        window.requestAnimationFrame(updateScroll);
+        ticking.current = true;
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -45,7 +65,6 @@ export default function Navbar({ activeTab, onSelectTab }: NavbarProps) {
   const handleTabClick = (tab: TabType) => {
     setIsMobileMenuOpen(false);
     onSelectTab(tab);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   // Menu options without icons
@@ -60,7 +79,7 @@ export default function Navbar({ activeTab, onSelectTab }: NavbarProps) {
   return (
     <nav
       id="navbar"
-      className={`fixed top-0 left-0 right-0 z-50 px-3 sm:px-6 lg:px-8 pt-2.5 sm:pt-3.5 bg-transparent transition-all duration-500 ease-out ${
+      className={`fixed top-0 left-0 right-0 z-50 px-3 sm:px-6 lg:px-8 pt-2.5 sm:pt-3.5 bg-transparent transition-all duration-200 ease-out ${
         isVisible
           ? 'translate-y-0 opacity-100'
           : '-translate-y-24 opacity-0 pointer-events-none'
@@ -69,22 +88,18 @@ export default function Navbar({ activeTab, onSelectTab }: NavbarProps) {
       <div className="max-w-7xl mx-auto px-1 sm:px-4 flex items-center justify-between gap-3">
         
         {/* Transparent Glass Capsule enclosing BOTH the Logo and Menu Options (div:nth-of-type(1)) */}
-        <div className="flex items-center gap-2.5 sm:gap-3.5 bg-white/45 backdrop-blur-xl px-4 sm:px-5 py-2 sm:py-2.5 rounded-full border border-blue-200/70 shadow-[0_8px_30px_rgba(0,53,171,0.12)] transition-all duration-300">
+        <div className="flex items-center gap-2.5 sm:gap-3.5 bg-white/55 backdrop-blur-md px-4 sm:px-5 py-2 sm:py-2.5 rounded-full border border-blue-200/70 shadow-[0_8px_30px_rgba(0,53,171,0.12)] transition-all duration-200">
           {/* Official Uploaded Logo inside the transparent capsule (No border, no shadow) */}
           <button
             onClick={() => handleTabClick('inicio')}
             className="flex items-center group text-left cursor-pointer shrink-0 min-h-[38px] focus:outline-none border-0 shadow-none pr-1"
             aria-label="Ir al inicio de Fundación ULEP"
           >
-            <div className="h-7 sm:h-8 w-24 sm:w-28 relative overflow-hidden flex items-center justify-center border-0 shadow-none">
+            <div className="h-7 sm:h-8 w-24 sm:w-28 relative flex items-center justify-center border-0 shadow-none">
               <img
-                src="/assets/aistudio/FUN_BLANCO_e68e4ad5.png"
+                src={logoUlepBlue}
                 alt="Logo Fundación ULEP"
-                className="w-full h-full object-cover object-center scale-[1.08] group-hover:scale-[1.14] transition-transform duration-500 ease-out select-none border-0 shadow-none"
-                style={{
-                  filter:
-                    'brightness(0) saturate(100%) invert(13%) sepia(87%) saturate(4648%) hue-rotate(218deg) brightness(91%) contrast(106%)',
-                }}
+                className="w-full h-full object-contain object-center group-hover:scale-[1.05] transition-transform duration-200 ease-out select-none border-0 shadow-none"
               />
             </div>
           </button>
@@ -97,10 +112,10 @@ export default function Navbar({ activeTab, onSelectTab }: NavbarProps) {
                 <button
                   key={item.id}
                   onClick={() => handleTabClick(item.id)}
-                  className={`relative px-4 lg:px-4.5 py-2 rounded-full text-xs font-display font-bold tracking-wide transition-all duration-300 ease-out cursor-pointer whitespace-nowrap min-h-[36px] ${
+                  className={`relative px-4 lg:px-4.5 py-2 rounded-full text-xs font-display font-bold tracking-wide transition-all duration-150 ease-out cursor-pointer whitespace-nowrap min-h-[36px] ${
                     isActive
-                      ? 'bg-[#0035ab] text-white shadow-[0_4px_14px_rgba(0,53,171,0.3)] scale-[1.03]'
-                      : 'text-[#001a57] hover:text-[#0035ab] hover:bg-white/65 hover:-translate-y-0.5'
+                      ? 'bg-[#0035ab] text-white shadow-[0_4px_14px_rgba(0,53,171,0.3)] scale-[1.02]'
+                      : 'text-[#001a57] hover:text-[#0035ab] hover:bg-white/70'
                   }`}
                 >
                   <span>{item.label}</span>

@@ -10,8 +10,7 @@
   html {
     font-family: var(--font-sans);
     color: #001a57;
-    background-color: #ffffff;
-    scroll-behavior: smooth;
+    background-color: #f8fbff;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -31,104 +30,68 @@
 
 @keyframes marquee {
   0% {
-    transform: translateX(0%);
+    transform: translate3d(0%, 0, 0);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
 .animate-marquee {
-  animation: marquee 55s linear infinite;
-}
-
-@keyframes floatSlow {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-14px) rotate(3deg);
-  }
-}
-
-@keyframes floatMedium {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-10px) rotate(-3deg);
-  }
-}
-
-@keyframes sparkleGlow {
-  0%, 100% {
-    opacity: 0.25;
-    transform: scale(0.92);
-  }
-  50% {
-    opacity: 0.7;
-    transform: scale(1.12);
-  }
+  animation: marquee 28s linear infinite;
+  will-change: transform;
 }
 
 @keyframes fadeUpIn {
   0% {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translate3d(0, 10px, 0);
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
-.animate-float-slow {
-  animation: floatSlow 9s ease-in-out infinite;
-}
-
-.animate-float-medium {
-  animation: floatMedium 7s ease-in-out infinite;
-}
-
-.animate-sparkle-glow {
-  animation: sparkleGlow 5s ease-in-out infinite;
-}
-
 .animate-fade-up {
-  animation: fadeUpIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: fadeUpIn 0.2s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-/* Directional scroll-triggered reveal animations (left, right, and bottom-up) */
+/* Fast, 60fps GPU-accelerated directional scroll-reveal (left, right, and bottom-up) */
 .scroll-reveal-item {
   opacity: 0;
   transition:
-    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: opacity, transform;
 }
 
 .scroll-reveal-item.reveal-from-bottom {
-  transform: translateY(38px) scale(0.985);
+  transform: translate3d(0, 22px, 0);
 }
 
 .scroll-reveal-item.reveal-from-left {
-  transform: translateX(-46px) translateY(8px);
+  transform: translate3d(-26px, 0, 0);
 }
 
 .scroll-reveal-item.reveal-from-right {
-  transform: translateX(46px) translateY(8px);
+  transform: translate3d(26px, 0, 0);
 }
 
 .scroll-reveal-item.is-revealed {
   opacity: 1;
-  transform: translateX(0) translateY(0) scale(1);
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
 }
 
-/* Subtle blue-tinted architectural grid on white canvas with soft light sparkles */
+/* Lightweight static architectural grid & soft blue ambient glow (zero GPU blur repaint) */
 .bg-architectural-grid {
   background-color: #f8fbff;
-  background-size: 44px 44px;
-  background-image: 
-    linear-gradient(to right, rgba(0, 53, 171, 0.038) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 53, 171, 0.038) 1px, transparent 1px);
+  background-image:
+    radial-gradient(circle at 12% 10%, rgba(0, 53, 171, 0.06) 0%, transparent 38%),
+    radial-gradient(circle at 88% 26%, rgba(59, 130, 246, 0.06) 0%, transparent 38%),
+    radial-gradient(circle at 15% 78%, rgba(0, 53, 171, 0.05) 0%, transparent 35%),
+    linear-gradient(to right, rgba(0, 53, 171, 0.032) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 53, 171, 0.032) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 44px 44px, 44px 44px;
 }

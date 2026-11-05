@@ -91,7 +91,7 @@ export default function HeroSection({
           <button
             type="button"
             onClick={onExplorePrograms}
-            className="bg-white/95 backdrop-blur-xs p-6 rounded-2xl border border-blue-100 hover:border-[#0035ab] shadow-xs hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group text-left flex flex-col justify-between"
+            className="bg-white p-6 rounded-2xl border border-blue-100 hover:border-[#0035ab] shadow-xs hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group text-left flex flex-col justify-between"
           >
             <div>
               <div className="flex items-center justify-between mb-4">
@@ -126,7 +126,7 @@ export default function HeroSection({
           <button
             type="button"
             onClick={onExplorePrograms}
-            className="bg-white/95 backdrop-blur-xs p-6 rounded-2xl border border-blue-100 hover:border-[#0035ab] shadow-xs hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group text-left flex flex-col justify-between"
+            className="bg-white p-6 rounded-2xl border border-blue-100 hover:border-[#0035ab] shadow-xs hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group text-left flex flex-col justify-between"
           >
             <div>
               <div className="flex items-center justify-between mb-4">

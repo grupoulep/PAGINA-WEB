@@ -123,7 +123,7 @@ export default function AdmissionsSection() {
           {steps.map((st, i) => (
             <div
               key={i}
-              className="bg-white/95 backdrop-blur-xs border border-blue-100 hover:border-[#0035ab] rounded-2xl p-6 shadow-xs hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between space-y-4 group"
+              className="bg-white border border-blue-100 hover:border-[#0035ab] rounded-2xl p-6 shadow-xs hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between space-y-4 group"
             >
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
@@ -164,7 +164,7 @@ export default function AdmissionsSection() {
           
           {/* Left Column: Requirements & Guarantees */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="bg-white/95 backdrop-blur-xs border border-blue-100 rounded-3xl p-6 sm:p-8 shadow-xs space-y-5">
+            <div className="bg-white border border-blue-100 rounded-3xl p-6 sm:p-8 shadow-xs space-y-5">
               <div className="space-y-1">
                 <span className="text-xs font-display font-extrabold uppercase tracking-wider text-[#0035ab] block">
                   Requisitos de Ingreso
@@ -261,7 +261,7 @@ export default function AdmissionsSection() {
           </div>
 
           {/* Right Column: Pre-registration Form */}
-          <div className="lg:col-span-7 bg-white/95 backdrop-blur-xs border border-blue-100 rounded-3xl p-6 sm:p-8 md:p-10 shadow-sm space-y-6">
+          <div className="lg:col-span-7 bg-white border border-blue-100 rounded-3xl p-6 sm:p-8 md:p-10 shadow-sm space-y-6">
             <div className="space-y-1 pb-3 border-b border-blue-50">
               <span className="text-xs font-display font-extrabold uppercase tracking-wider text-[#0035ab] block">
                 Formulario Oficial Sin Costo
@@ -437,7 +437,7 @@ export default function AdmissionsSection() {
         </div>
 
         {/* FAQs Section */}
-        <div className="bg-white/95 backdrop-blur-xs border border-blue-100 rounded-3xl p-6 sm:p-10 space-y-6 shadow-xs">
+        <div className="bg-white border border-blue-100 rounded-3xl p-6 sm:p-10 space-y-6 shadow-xs">
           <div className="flex items-center gap-2.5 pb-3 border-b border-blue-50">
             <img
               src="https://img.icons8.com/fluency-systems-filled/48/0035ab/question-mark.png"

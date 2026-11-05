@@ -39,7 +39,7 @@ export default function BenefitsSection({ onCtaClick }: BenefitsSectionProps) {
         {/* ========================================================================= */}
         {/* FILA 1: CUADRO A LA IZQUIERDA / IMAGEN A LA DERECHA */}
         {/* ========================================================================= */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white/95 backdrop-blur-xs border border-blue-100 hover:border-[#0035ab]/60 rounded-3xl p-6 sm:p-8 md:p-10 shadow-sm hover:shadow-xl transition-all duration-300">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white border border-blue-100 hover:border-[#0035ab]/60 rounded-3xl p-6 sm:p-8 md:p-10 shadow-sm hover:shadow-xl transition-all duration-300">
           {/* Cuadro Izquierda */}
           <div className="lg:col-span-6 space-y-5">
             <div className="space-y-2">
@@ -131,7 +131,7 @@ export default function BenefitsSection({ onCtaClick }: BenefitsSectionProps) {
         {/* ========================================================================= */}
         {/* FILA 2: IMAGEN A LA IZQUIERDA / CUADRO A LA DERECHA (INTERCALADO) */}
         {/* ========================================================================= */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white/95 backdrop-blur-xs border border-blue-100 hover:border-[#0035ab]/60 rounded-3xl p-6 sm:p-8 md:p-10 shadow-sm hover:shadow-xl transition-all duration-300">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white border border-blue-100 hover:border-[#0035ab]/60 rounded-3xl p-6 sm:p-8 md:p-10 shadow-sm hover:shadow-xl transition-all duration-300">
           {/* Imagen Izquierda */}
           <div className="lg:col-span-6 order-2 lg:order-1 h-full min-h-[280px] sm:min-h-[360px] relative rounded-2xl overflow-hidden border border-blue-100 shadow-xs">
             <img
@@ -233,7 +233,7 @@ export default function BenefitsSection({ onCtaClick }: BenefitsSectionProps) {
         {/* ========================================================================= */}
         {/* FILA 3: CUADRO A LA IZQUIERDA / IMAGEN A LA DERECHA (INTERCALADO) */}
         {/* ========================================================================= */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white/95 backdrop-blur-xs border border-blue-100 hover:border-[#0035ab]/60 rounded-3xl p-6 sm:p-8 md:p-10 shadow-sm hover:shadow-xl transition-all duration-300">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white border border-blue-100 hover:border-[#0035ab]/60 rounded-3xl p-6 sm:p-8 md:p-10 shadow-sm hover:shadow-xl transition-all duration-300">
           {/* Cuadro Izquierda */}
           <div className="lg:col-span-6 space-y-5">
             <div className="space-y-2">
@@ -335,7 +335,7 @@ export default function BenefitsSection({ onCtaClick }: BenefitsSectionProps) {
         {/* ========================================================================= */}
         {/* FILA 4: IMAGEN A LA IZQUIERDA / CUADRO A LA DERECHA (INTERCALADO) */}
         {/* ========================================================================= */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white/95 backdrop-blur-xs border border-blue-100 hover:border-[#0035ab]/60 rounded-3xl p-6 sm:p-8 md:p-10 shadow-sm hover:shadow-xl transition-all duration-300">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white border border-blue-100 hover:border-[#0035ab]/60 rounded-3xl p-6 sm:p-8 md:p-10 shadow-sm hover:shadow-xl transition-all duration-300">
           {/* Imagen Izquierda */}
           <div className="lg:col-span-6 order-2 lg:order-1 h-full min-h-[280px] sm:min-h-[360px] relative rounded-2xl overflow-hidden border border-blue-100 shadow-xs">
             <img

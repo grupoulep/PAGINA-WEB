@@ -29,30 +29,54 @@ export default function App() {
     return () => window.removeEventListener('ulep_admin_images_updated', handleImageUpdate);
   }, []);
 
-  // Scroll-reveal observer for smooth directional animations (left, right, and bottom-up)
+  // Lightweight, non-blocking directional scroll-reveal (left, right, and bottom-up)
   useEffect(() => {
     const selector =
-      'main section > div > div, main article, main section > div > div > button, main section > div > div > div, main > div > div > div > button';
+      'main section > div > div, main article, main > div > div > div > button';
     const elements = Array.from(document.querySelectorAll<HTMLElement>(selector));
+    const directions = ['reveal-from-bottom', 'reveal-from-left', 'reveal-from-right'];
+    const viewportHeight = window.innerHeight || 800;
 
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
+        for (let i = 0; i < entries.length; i++) {
+          const entry = entries[i];
           if (entry.isIntersecting) {
-            entry.target.classList.add('is-revealed');
+            const target = entry.target as HTMLElement;
+            target.classList.add('is-revealed');
+            observer.unobserve(target);
+            // Clean up reveal classes after the 300ms animation so hover/click transforms are 100% native
+            setTimeout(() => {
+              target.classList.remove(
+                'scroll-reveal-item',
+                'reveal-from-bottom',
+                'reveal-from-left',
+                'reveal-from-right',
+                'is-revealed'
+              );
+            }, 320);
           }
-        });
+        }
       },
       {
-        threshold: 0.08,
-        rootMargin: '0px 0px -28px 0px',
+        threshold: 0.05,
+        rootMargin: '0px 0px -16px 0px',
       }
     );
 
-    const directions = ['reveal-from-bottom', 'reveal-from-left', 'reveal-from-right'];
-
     elements.forEach((el, idx) => {
-      el.classList.remove('reveal-from-bottom', 'reveal-from-left', 'reveal-from-right', 'is-revealed');
+      const rect = el.getBoundingClientRect();
+      // Elements already visible at top of screen appear immediately without delay
+      if (rect.top < viewportHeight * 0.88) {
+        el.classList.remove(
+          'scroll-reveal-item',
+          'reveal-from-bottom',
+          'reveal-from-left',
+          'reveal-from-right',
+          'is-revealed'
+        );
+        return;
+      }
       el.classList.add('scroll-reveal-item', directions[idx % directions.length]);
       observer.observe(el);
     });
@@ -62,7 +86,7 @@ export default function App() {
 
   const handleTabChange = (tab: TabType) => {
     setActiveTab(tab);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
   };
 
   const handleScrollToEnrollment = (_category?: ProgramType) => {
@@ -70,61 +94,51 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8fbff] bg-architectural-grid text-[#001a57] font-sans selection:bg-[#0035ab] selection:text-white scroll-smooth antialiased relative overflow-hidden flex flex-col justify-between">
+    <div className="min-h-screen bg-[#f8fbff] bg-architectural-grid text-[#001a57] font-sans selection:bg-[#0035ab] selection:text-white antialiased relative overflow-x-hidden flex flex-col justify-between">
       
       {/* ===================================================================== */}
-      {/* EDUCATIONAL AMBIENT BACKGROUND: Sparkles, Light Glows & Academic Icons */}
+      {/* LIGHTWEIGHT EDUCATIONAL WATERMARKS (Zero Blur Repaint Overhead)       */}
       {/* ===================================================================== */}
-      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden select-none" aria-hidden="true">
-        {/* Soft Blue Light Orbs / Destellos */}
-        <div className="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-blue-300/20 blur-3xl animate-sparkle-glow" />
-        <div className="absolute top-1/4 -right-28 w-[28rem] h-[28rem] rounded-full bg-[#0035ab]/10 blur-3xl animate-sparkle-glow" style={{ animationDelay: '1.5s' }} />
-        <div className="absolute bottom-1/4 -left-20 w-80 h-80 rounded-full bg-blue-200/25 blur-3xl animate-sparkle-glow" style={{ animationDelay: '3s' }} />
-        <div className="absolute -bottom-24 right-1/4 w-96 h-96 rounded-full bg-[#0035ab]/10 blur-3xl animate-sparkle-glow" style={{ animationDelay: '2.2s' }} />
-
-        {/* Subtle Star Sparkles (Destellos de Luz) */}
-        <div className="absolute top-[14%] left-[12%] w-2.5 h-2.5 rounded-full bg-[#0035ab]/30 shadow-[0_0_16px_4px_rgba(0,53,171,0.35)] animate-sparkle-glow" />
-        <div className="absolute top-[22%] right-[15%] w-2 h-2 rounded-full bg-blue-500/35 shadow-[0_0_14px_4px_rgba(59,130,246,0.35)] animate-sparkle-glow" style={{ animationDelay: '1.2s' }} />
-        <div className="absolute top-[52%] left-[7%] w-2 h-2 rounded-full bg-[#0035ab]/25 shadow-[0_0_14px_3px_rgba(0,53,171,0.28)] animate-sparkle-glow" style={{ animationDelay: '2.4s' }} />
-        <div className="absolute top-[64%] right-[9%] w-3 h-3 rounded-full bg-blue-400/30 shadow-[0_0_18px_5px_rgba(59,130,246,0.35)] animate-sparkle-glow" style={{ animationDelay: '0.8s' }} />
-        <div className="absolute bottom-[16%] left-[20%] w-2 h-2 rounded-full bg-[#0035ab]/30 shadow-[0_0_14px_4px_rgba(0,53,171,0.3)] animate-sparkle-glow" style={{ animationDelay: '3.1s' }} />
-
-        {/* Floating Educational Watermarks from Icons8 Fluency Systems Filled */}
+      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden select-none hidden sm:block" aria-hidden="true">
         <img
           src="https://img.icons8.com/fluency-systems-filled/96/0035ab/graduation-cap.png"
           alt=""
+          loading="lazy"
+          decoding="async"
           referrerPolicy="no-referrer"
-          className="hidden sm:block absolute top-[13%] left-[4%] w-12 h-12 opacity-[0.055] animate-float-slow"
+          className="absolute top-[14%] left-[4%] w-11 h-11 opacity-[0.045]"
         />
         <img
           src="https://img.icons8.com/fluency-systems-filled/96/0035ab/open-book.png"
           alt=""
+          loading="lazy"
+          decoding="async"
           referrerPolicy="no-referrer"
-          className="hidden sm:block absolute top-[20%] right-[4%] w-11 h-11 opacity-[0.05] animate-float-medium"
+          className="absolute top-[22%] right-[4%] w-10 h-10 opacity-[0.04]"
         />
         <img
           src="https://img.icons8.com/fluency-systems-filled/96/0035ab/certificate.png"
           alt=""
+          loading="lazy"
+          decoding="async"
           referrerPolicy="no-referrer"
-          className="hidden md:block absolute top-[46%] left-[3%] w-11 h-11 opacity-[0.05] animate-float-medium"
+          className="hidden md:block absolute top-[48%] left-[3%] w-10 h-10 opacity-[0.04]"
         />
         <img
           src="https://img.icons8.com/fluency-systems-filled/96/0035ab/university.png"
           alt=""
+          loading="lazy"
+          decoding="async"
           referrerPolicy="no-referrer"
-          className="hidden md:block absolute top-[55%] right-[3.5%] w-12 h-12 opacity-[0.045] animate-float-slow"
+          className="hidden md:block absolute top-[56%] right-[3.5%] w-11 h-11 opacity-[0.04]"
         />
         <img
           src="https://img.icons8.com/fluency-systems-filled/96/0035ab/trophy.png"
           alt=""
+          loading="lazy"
+          decoding="async"
           referrerPolicy="no-referrer"
-          className="hidden sm:block absolute bottom-[18%] left-[5%] w-11 h-11 opacity-[0.05] animate-float-slow"
-        />
-        <img
-          src="https://img.icons8.com/fluency-systems-filled/96/0035ab/idea.png"
-          alt=""
-          referrerPolicy="no-referrer"
-          className="hidden sm:block absolute bottom-[22%] right-[5%] w-10 h-10 opacity-[0.05] animate-float-medium"
+          className="absolute bottom-[18%] left-[5%] w-10 h-10 opacity-[0.045]"
         />
       </div>
 
@@ -174,11 +188,11 @@ export default function App() {
                 <button
                   type="button"
                   onClick={() => handleTabChange('programas')}
-                  className="bg-white/95 backdrop-blur-xs hover:bg-blue-50/60 p-6 sm:p-7 rounded-3xl border border-blue-100 hover:border-[#0035ab] shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group cursor-pointer flex flex-col justify-between text-left"
+                  className="bg-white hover:bg-blue-50/60 p-6 sm:p-7 rounded-3xl border border-blue-100 hover:border-[#0035ab] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-200 group cursor-pointer flex flex-col justify-between text-left"
                 >
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
-                      <div className="w-12 h-12 rounded-2xl bg-[#0035ab] text-white flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-sm">
+                      <div className="w-12 h-12 rounded-2xl bg-[#0035ab] text-white flex items-center justify-center group-hover:scale-105 transition-transform duration-200 shadow-sm">
                         <img
                           src="https://img.icons8.com/fluency-systems-filled/48/ffffff/graduation-cap.png"
                           alt="Cursos para el Trabajo"
@@ -203,7 +217,7 @@ export default function App() {
                     <img
                       src="https://img.icons8.com/fluency-systems-filled/48/0035ab/forward-arrow.png"
                       alt=""
-                      className="w-4 h-4 group-hover:translate-x-1.5 transition-transform"
+                      className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200"
                       referrerPolicy="no-referrer"
                     />
                   </div>
@@ -212,11 +226,11 @@ export default function App() {
                 <button
                   type="button"
                   onClick={() => handleTabChange('beneficios')}
-                  className="bg-white/95 backdrop-blur-xs hover:bg-blue-50/60 p-6 sm:p-7 rounded-3xl border border-blue-100 hover:border-[#0035ab] shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group cursor-pointer flex flex-col justify-between text-left"
+                  className="bg-white hover:bg-blue-50/60 p-6 sm:p-7 rounded-3xl border border-blue-100 hover:border-[#0035ab] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-200 group cursor-pointer flex flex-col justify-between text-left"
                 >
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
-                      <div className="w-12 h-12 rounded-2xl bg-[#002477] text-white flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-sm">
+                      <div className="w-12 h-12 rounded-2xl bg-[#002477] text-white flex items-center justify-center group-hover:scale-105 transition-transform duration-200 shadow-sm">
                         <img
                           src="https://img.icons8.com/fluency-systems-filled/48/ffffff/trophy.png"
                           alt="Beneficios y Becas"
@@ -241,7 +255,7 @@ export default function App() {
                     <img
                       src="https://img.icons8.com/fluency-systems-filled/48/002477/forward-arrow.png"
                       alt=""
-                      className="w-4 h-4 group-hover:translate-x-1.5 transition-transform"
+                      className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200"
                       referrerPolicy="no-referrer"
                     />
                   </div>
@@ -250,11 +264,11 @@ export default function App() {
                 <button
                   type="button"
                   onClick={() => handleTabChange('inscripciones')}
-                  className="bg-white/95 backdrop-blur-xs hover:bg-blue-50/60 p-6 sm:p-7 rounded-3xl border border-blue-100 hover:border-[#0035ab] shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group cursor-pointer flex flex-col justify-between text-left"
+                  className="bg-white hover:bg-blue-50/60 p-6 sm:p-7 rounded-3xl border border-blue-100 hover:border-[#0035ab] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-200 group cursor-pointer flex flex-col justify-between text-left"
                 >
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
-                      <div className="w-12 h-12 rounded-2xl bg-[#0035ab] text-white flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-sm">
+                      <div className="w-12 h-12 rounded-2xl bg-[#0035ab] text-white flex items-center justify-center group-hover:scale-105 transition-transform duration-200 shadow-sm">
                         <img
                           src="https://img.icons8.com/fluency-systems-filled/48/ffffff/certificate.png"
                           alt="Inscripciones Abiertas"
@@ -279,7 +293,7 @@ export default function App() {
                     <img
                       src="https://img.icons8.com/fluency-systems-filled/48/0035ab/forward-arrow.png"
                       alt=""
-                      className="w-4 h-4 group-hover:translate-x-1.5 transition-transform"
+                      className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200"
                       referrerPolicy="no-referrer"
                     />
                   </div>

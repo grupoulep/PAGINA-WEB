@@ -64,7 +64,7 @@ export default function ProgramCategoriesSection({ onSelectCategory }: ProgramCa
         </div>
 
         {/* Architectural Key Metrics Strip (White & Blues + Icons8 Fluency Systems Filled) */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 bg-white/95 backdrop-blur-xs rounded-2xl border border-blue-100 divide-y sm:divide-y-0 sm:divide-x divide-blue-100 shadow-xs overflow-hidden max-w-4xl mx-auto">
+        <div className="grid grid-cols-2 sm:grid-cols-4 bg-white rounded-2xl border border-blue-100 divide-y sm:divide-y-0 sm:divide-x divide-blue-100 shadow-xs overflow-hidden max-w-4xl mx-auto">
           <div className="p-4 text-center flex flex-col items-center gap-1">
             <img
               src="https://img.icons8.com/fluency-systems-filled/48/0035ab/goal.png"
@@ -162,7 +162,7 @@ export default function ProgramCategoriesSection({ onSelectCategory }: ProgramCa
             {filteredCourses.map((course, idx) => (
               <article
                 key={course.id}
-                className="bg-white/95 backdrop-blur-xs border border-blue-100 hover:border-[#0035ab] rounded-3xl transition-all duration-300 hover:-translate-y-1.5 shadow-sm hover:shadow-xl shadow-blue-950/5 flex flex-col justify-between overflow-hidden group"
+                className="bg-white border border-blue-100 hover:border-[#0035ab] rounded-3xl transition-all duration-300 hover:-translate-y-1.5 shadow-sm hover:shadow-xl shadow-blue-950/5 flex flex-col justify-between overflow-hidden group"
               >
                 {/* Image Header */}
                 <div className="relative h-52 sm:h-60 overflow-hidden bg-[#001a57]">

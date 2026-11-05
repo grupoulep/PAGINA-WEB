@@ -27,7 +27,7 @@ export default function FoundationBannerSlider() {
 
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % banners.length);
-    }, 5500);
+    }, 4200);
 
     return () => clearInterval(timer);
   }, [banners.length, isPaused]);
@@ -87,8 +87,10 @@ export default function FoundationBannerSlider() {
           key={currentBanner.id}
           src={currentBanner.imageUrl}
           alt={currentBanner.name || 'Campus y Estudiantes Fundación ULEP'}
+          decoding="async"
+          fetchPriority="high"
           referrerPolicy="no-referrer"
-          className="w-full h-full object-cover object-center animate-in fade-in duration-700 scale-[1.01] group-hover:scale-105 transition-transform duration-1000"
+          className="w-full h-full object-cover object-center animate-fade-up transition-transform duration-300"
         />
 
         {/* Subtle Blue Vignette */}

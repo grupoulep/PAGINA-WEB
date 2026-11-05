@@ -1,5 +1,6 @@
 import React from 'react';
 import heroStudentsImg from '../assets/images/hero_students_ulep_1786064095670.jpg';
+import logoUlepBlue from '../assets/images/logo_ulep_blue.png';
 
 interface AboutUsSectionProps {
   onExplorePrograms: () => void;
@@ -71,16 +72,15 @@ export default function AboutUsSection({
         </div>
 
         {/* Institutional Story & Image Showcase */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white/95 backdrop-blur-xs border border-blue-100 rounded-3xl p-6 sm:p-10 shadow-sm hover:shadow-md transition-all">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white border border-blue-100 rounded-3xl p-6 sm:p-10 shadow-sm hover:shadow-md transition-all">
           <div className="lg:col-span-7 space-y-5">
             {/* Smaller Logo Badge without background box */}
             <div className="inline-flex items-center gap-3">
-              <div className="h-7 w-22 relative overflow-hidden flex items-center justify-center">
+              <div className="h-7 w-22 relative flex items-center justify-center">
                 <img
-                  src="/assets/aistudio/FUN_BLANCO_e68e4ad5.png"
+                  src={logoUlepBlue}
                   alt="Logo Fundación ULEP"
-                  className="w-full h-full object-cover object-center scale-[1.08]"
-                  style={{ filter: 'brightness(0) saturate(100%) invert(13%) sepia(87%) saturate(4648%) hue-rotate(218deg) brightness(91%) contrast(106%)' }}
+                  className="w-full h-full object-contain object-center"
                 />
               </div>
               <span className="text-[10px] font-display font-extrabold uppercase tracking-wider text-[#0035ab] border-l border-blue-200 pl-3">
@@ -146,7 +146,7 @@ export default function AboutUsSection({
 
         {/* Mission and Vision Grid (Strictly White & Blues + Icons8 Fluency Systems Filled) */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-          <div className="bg-white/95 backdrop-blur-xs border border-blue-100 hover:border-[#0035ab] rounded-3xl p-7 sm:p-9 shadow-xs hover:shadow-lg transition-all duration-300 flex flex-col justify-between space-y-5">
+          <div className="bg-white border border-blue-100 hover:border-[#0035ab] rounded-3xl p-7 sm:p-9 shadow-xs hover:shadow-lg transition-all duration-300 flex flex-col justify-between space-y-5">
             <div className="space-y-3.5">
               <div className="flex items-center justify-between">
                 <div className="w-11 h-11 rounded-xl bg-blue-50 flex items-center justify-center">
@@ -177,7 +177,7 @@ export default function AboutUsSection({
             </div>
           </div>
 
-          <div className="bg-white/95 backdrop-blur-xs border border-blue-100 hover:border-[#0035ab] rounded-3xl p-7 sm:p-9 shadow-xs hover:shadow-lg transition-all duration-300 flex flex-col justify-between space-y-5">
+          <div className="bg-white border border-blue-100 hover:border-[#0035ab] rounded-3xl p-7 sm:p-9 shadow-xs hover:shadow-lg transition-all duration-300 flex flex-col justify-between space-y-5">
             <div className="space-y-3.5">
               <div className="flex items-center justify-between">
                 <div className="w-11 h-11 rounded-xl bg-[#0035ab] text-white flex items-center justify-center">
@@ -224,7 +224,7 @@ export default function AboutUsSection({
             {pillars.map((pillar, idx) => (
               <div
                 key={idx}
-                className="bg-white/95 backdrop-blur-xs border border-blue-100 hover:border-[#0035ab] rounded-2xl p-6 shadow-xs hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group"
+                className="bg-white border border-blue-100 hover:border-[#0035ab] rounded-2xl p-6 shadow-xs hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group"
               >
                 <div className="space-y-3.5">
                   <div className="flex items-center justify-between">

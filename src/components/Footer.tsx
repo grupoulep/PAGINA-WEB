@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { TabType } from '../types';
+import logoUlepWhite from '../assets/images/logo_ulep_white.png';
 
 interface FooterProps {
   onSelectTab?: (tab: TabType) => void;
@@ -19,7 +20,6 @@ export default function Footer({ onSelectTab, onOpenAdmin }: FooterProps) {
     if (onSelectTab) {
       e.preventDefault();
       onSelectTab(tab);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
@@ -30,13 +30,13 @@ export default function Footer({ onSelectTab, onOpenAdmin }: FooterProps) {
         {/* Footer Top Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-8 sm:gap-10 md:gap-12 pb-10 border-b border-blue-800/60">
           
-          {/* Brand Column with Smaller Uploaded Logo (/assets/aistudio/FUN_BLANCO_e68e4ad5.png) - 5 Cols */}
+          {/* Brand Column with Smaller Uploaded Logo - 5 Cols */}
           <div className="sm:col-span-2 md:col-span-5 space-y-4">
-            <div className="h-9 w-28 relative overflow-hidden flex items-center justify-start">
+            <div className="h-9 w-28 relative flex items-center justify-start">
               <img
-                src="/assets/aistudio/FUN_BLANCO_e68e4ad5.png"
+                src={logoUlepWhite}
                 alt="Logo Fundación ULEP"
-                className="w-full h-full object-cover object-center scale-[1.08] select-none"
+                className="w-full h-full object-contain object-left select-none"
               />
             </div>
 
