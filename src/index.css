@@ -1,0 +1,134 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-sans: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-display: 'Gotham', 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-serif: 'Gotham', 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  html {
+    font-family: var(--font-sans);
+    color: #001a57;
+    background-color: #ffffff;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+  }
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-serif-editorial {
+  font-family: var(--font-display);
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 55s linear infinite;
+}
+
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-14px) rotate(3deg);
+  }
+}
+
+@keyframes floatMedium {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(-3deg);
+  }
+}
+
+@keyframes sparkleGlow {
+  0%, 100% {
+    opacity: 0.25;
+    transform: scale(0.92);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.12);
+  }
+}
+
+@keyframes fadeUpIn {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-float-slow {
+  animation: floatSlow 9s ease-in-out infinite;
+}
+
+.animate-float-medium {
+  animation: floatMedium 7s ease-in-out infinite;
+}
+
+.animate-sparkle-glow {
+  animation: sparkleGlow 5s ease-in-out infinite;
+}
+
+.animate-fade-up {
+  animation: fadeUpIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Directional scroll-triggered reveal animations (left, right, and bottom-up) */
+.scroll-reveal-item {
+  opacity: 0;
+  transition:
+    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.scroll-reveal-item.reveal-from-bottom {
+  transform: translateY(38px) scale(0.985);
+}
+
+.scroll-reveal-item.reveal-from-left {
+  transform: translateX(-46px) translateY(8px);
+}
+
+.scroll-reveal-item.reveal-from-right {
+  transform: translateX(46px) translateY(8px);
+}
+
+.scroll-reveal-item.is-revealed {
+  opacity: 1;
+  transform: translateX(0) translateY(0) scale(1);
+}
+
+/* Subtle blue-tinted architectural grid on white canvas with soft light sparkles */
+.bg-architectural-grid {
+  background-color: #f8fbff;
+  background-size: 44px 44px;
+  background-image: 
+    linear-gradient(to right, rgba(0, 53, 171, 0.038) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 53, 171, 0.038) 1px, transparent 1px);
+}
