@@ -6,13 +6,11 @@ interface ProgramCategoriesSectionProps {
 }
 
 export default function ProgramCategoriesSection({ onSelectCategory }: ProgramCategoriesSectionProps) {
-  const [courses, setCourses] = useState<CourseData[]>([]);
+  const [courses, setCourses] = useState<CourseData[]>(() => getStoredCourses());
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCourseForModal, setSelectedCourseForModal] = useState<CourseData | null>(null);
 
   useEffect(() => {
-    setCourses(getStoredCourses());
-
     const handleUpdate = () => {
       setCourses(getStoredCourses());
     };

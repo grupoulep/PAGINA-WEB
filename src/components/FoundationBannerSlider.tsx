@@ -2,7 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import { FoundationBanner, getStoredFoundationBanners } from '../utils/adminStorage';
 
 export default function FoundationBannerSlider() {
-  const [banners, setBanners] = useState<FoundationBanner[]>([]);
+  const [banners, setBanners] = useState<FoundationBanner[]>(() => {
+    const stored = getStoredFoundationBanners();
+    const active = stored.filter((b) => b.active);
+    return active.length > 0 ? active : stored;
+  });
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
@@ -15,8 +19,6 @@ export default function FoundationBannerSlider() {
       const active = stored.filter((b) => b.active);
       setBanners(active.length > 0 ? active : stored);
     };
-
-    loadBanners();
 
     window.addEventListener('ulep_admin_foundation_banners_updated', loadBanners);
     return () => window.removeEventListener('ulep_admin_foundation_banners_updated', loadBanners);

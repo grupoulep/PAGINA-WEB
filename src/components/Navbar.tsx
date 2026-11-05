@@ -9,8 +9,8 @@ interface NavbarProps {
 }
 
 export default function Navbar({ activeTab, onSelectTab }: NavbarProps) {
-  const [isVisible, setIsVisible] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navRef = useRef<HTMLElement>(null);
   const lastScrollY = useRef(0);
   const isVisibleRef = useRef(true);
   const ticking = useRef(false);
@@ -22,17 +22,21 @@ export default function Navbar({ activeTab, onSelectTab }: NavbarProps) {
 
       if (currentScrollY < 30) {
         nextVisible = true;
-      } else if (currentScrollY > lastScrollY.current + 8) {
+      } else if (currentScrollY > lastScrollY.current + 6) {
         nextVisible = false;
-      } else if (currentScrollY < lastScrollY.current - 8) {
+      } else if (currentScrollY < lastScrollY.current - 6) {
         nextVisible = true;
       }
 
       if (nextVisible !== isVisibleRef.current) {
         isVisibleRef.current = nextVisible;
-        setIsVisible(nextVisible);
-        if (!nextVisible) {
-          setIsMobileMenuOpen(false);
+        const navEl = navRef.current;
+        if (navEl) {
+          navEl.style.transform = nextVisible
+            ? 'translate3d(0, 0, 0)'
+            : 'translate3d(0, -96px, 0)';
+          navEl.style.opacity = nextVisible ? '1' : '0';
+          navEl.style.pointerEvents = nextVisible ? 'auto' : 'none';
         }
       }
 
@@ -78,12 +82,15 @@ export default function Navbar({ activeTab, onSelectTab }: NavbarProps) {
 
   return (
     <nav
+      ref={navRef}
       id="navbar"
-      className={`fixed top-0 left-0 right-0 z-50 px-3 sm:px-6 lg:px-8 pt-2.5 sm:pt-3.5 bg-transparent transition-all duration-200 ease-out ${
-        isVisible
-          ? 'translate-y-0 opacity-100'
-          : '-translate-y-24 opacity-0 pointer-events-none'
-      }`}
+      style={{
+        transform: 'translate3d(0, 0, 0)',
+        opacity: 1,
+        willChange: 'transform, opacity',
+        backfaceVisibility: 'hidden',
+      }}
+      className="fixed top-0 left-0 right-0 z-50 px-3 sm:px-6 lg:px-8 pt-2.5 sm:pt-3.5 bg-transparent transition-[transform,opacity] duration-150 ease-out"
     >
       <div className="max-w-7xl mx-auto px-1 sm:px-4 flex items-center justify-between gap-3">
         

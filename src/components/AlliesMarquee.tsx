@@ -2,11 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { AllyLogo, getStoredAllies } from '../utils/adminStorage';
 
 export default function AlliesMarquee() {
-  const [allies, setAllies] = useState<AllyLogo[]>([]);
+  const [allies, setAllies] = useState<AllyLogo[]>(() => getStoredAllies());
 
   useEffect(() => {
-    setAllies(getStoredAllies());
-
     const handleUpdate = () => {
       setAllies(getStoredAllies());
     };

@@ -16,11 +16,9 @@ import { getStoredImages } from './utils/adminStorage';
 export default function App() {
   const [activeTab, setActiveTab] = useState<TabType>('inicio');
   const [isAdminModalOpen, setIsAdminModalOpen] = useState(false);
-  const [heroImage, setHeroImage] = useState<string>('');
+  const [heroImage, setHeroImage] = useState<string>(() => getStoredImages().heroImage);
 
   useEffect(() => {
-    setHeroImage(getStoredImages().heroImage);
-
     const handleImageUpdate = () => {
       setHeroImage(getStoredImages().heroImage);
     };
@@ -29,7 +27,7 @@ export default function App() {
     return () => window.removeEventListener('ulep_admin_images_updated', handleImageUpdate);
   }, []);
 
-  // Lightweight, non-blocking directional scroll-reveal (left, right, and bottom-up)
+  // 120 FPS directional scroll-reveal (left, right, and bottom-up)
   useEffect(() => {
     const selector =
       'main section > div > div, main article, main > div > div > div > button';
@@ -45,7 +43,6 @@ export default function App() {
             const target = entry.target as HTMLElement;
             target.classList.add('is-revealed');
             observer.unobserve(target);
-            // Clean up reveal classes after the 300ms animation so hover/click transforms are 100% native
             setTimeout(() => {
               target.classList.remove(
                 'scroll-reveal-item',
@@ -54,20 +51,19 @@ export default function App() {
                 'reveal-from-right',
                 'is-revealed'
               );
-            }, 320);
+            }, 230);
           }
         }
       },
       {
-        threshold: 0.05,
-        rootMargin: '0px 0px -16px 0px',
+        threshold: 0.04,
+        rootMargin: '0px 0px -10px 0px',
       }
     );
 
     elements.forEach((el, idx) => {
       const rect = el.getBoundingClientRect();
-      // Elements already visible at top of screen appear immediately without delay
-      if (rect.top < viewportHeight * 0.88) {
+      if (rect.top < viewportHeight * 0.9) {
         el.classList.remove(
           'scroll-reveal-item',
           'reveal-from-bottom',
@@ -86,7 +82,7 @@ export default function App() {
 
   const handleTabChange = (tab: TabType) => {
     setActiveTab(tab);
-    window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
+    window.scrollTo(0, 0);
   };
 
   const handleScrollToEnrollment = (_category?: ProgramType) => {
@@ -95,53 +91,6 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#f8fbff] bg-architectural-grid text-[#001a57] font-sans selection:bg-[#0035ab] selection:text-white antialiased relative overflow-x-hidden flex flex-col justify-between">
-      
-      {/* ===================================================================== */}
-      {/* LIGHTWEIGHT EDUCATIONAL WATERMARKS (Zero Blur Repaint Overhead)       */}
-      {/* ===================================================================== */}
-      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden select-none hidden sm:block" aria-hidden="true">
-        <img
-          src="https://img.icons8.com/fluency-systems-filled/96/0035ab/graduation-cap.png"
-          alt=""
-          loading="lazy"
-          decoding="async"
-          referrerPolicy="no-referrer"
-          className="absolute top-[14%] left-[4%] w-11 h-11 opacity-[0.045]"
-        />
-        <img
-          src="https://img.icons8.com/fluency-systems-filled/96/0035ab/open-book.png"
-          alt=""
-          loading="lazy"
-          decoding="async"
-          referrerPolicy="no-referrer"
-          className="absolute top-[22%] right-[4%] w-10 h-10 opacity-[0.04]"
-        />
-        <img
-          src="https://img.icons8.com/fluency-systems-filled/96/0035ab/certificate.png"
-          alt=""
-          loading="lazy"
-          decoding="async"
-          referrerPolicy="no-referrer"
-          className="hidden md:block absolute top-[48%] left-[3%] w-10 h-10 opacity-[0.04]"
-        />
-        <img
-          src="https://img.icons8.com/fluency-systems-filled/96/0035ab/university.png"
-          alt=""
-          loading="lazy"
-          decoding="async"
-          referrerPolicy="no-referrer"
-          className="hidden md:block absolute top-[56%] right-[3.5%] w-11 h-11 opacity-[0.04]"
-        />
-        <img
-          src="https://img.icons8.com/fluency-systems-filled/96/0035ab/trophy.png"
-          alt=""
-          loading="lazy"
-          decoding="async"
-          referrerPolicy="no-referrer"
-          className="absolute bottom-[18%] left-[5%] w-10 h-10 opacity-[0.045]"
-        />
-      </div>
-
       {/* Main Top Navigation with Integrated Tabs */}
       <Navbar
         onJoinClick={() => handleScrollToEnrollment()}
