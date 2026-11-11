@@ -9,7 +9,6 @@ import BenefitsSection from './components/BenefitsSection';
 import AboutUsSection from './components/AboutUsSection';
 import AdmissionsSection from './components/AdmissionsSection';
 import Footer from './components/Footer';
-import WhatsAppButton from './components/WhatsAppButton';
 import AdminModal from './components/AdminModal';
 import { getStoredImages } from './utils/adminStorage';
 
@@ -299,9 +298,6 @@ export default function App() {
         isOpen={isAdminModalOpen}
         onClose={() => setIsAdminModalOpen(false)}
       />
-
-      {/* Floating WhatsApp Button */}
-      <WhatsAppButton />
     </div>
   );
 }
