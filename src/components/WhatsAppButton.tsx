@@ -12,7 +12,7 @@ export default function WhatsAppButton({
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
   return (
-    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex items-center gap-3 group">
+    <div className="fixed bottom-24 right-4 sm:bottom-24 sm:right-6 z-40 flex items-center gap-3 group">
       {/* Floating Contact Button in Institutional Blue & White Palette with Icons8 */}
       <a
         href={whatsappUrl}

@@ -92,96 +92,99 @@ export default function Navbar({ activeTab, onSelectTab }: NavbarProps) {
       }}
       className="fixed top-0 left-0 right-0 z-50 px-3 sm:px-6 lg:px-8 pt-2.5 sm:pt-3.5 bg-transparent transition-[transform,opacity] duration-150 ease-out"
     >
-      <div className="max-w-7xl mx-auto px-1 sm:px-4 flex items-center justify-between gap-3">
+      <div className="w-full max-w-[96%] xl:max-w-[1440px] mx-auto px-1 sm:px-3 flex items-center justify-between gap-3 sm:gap-4 animate-fade-up">
         
-        {/* Transparent Glass Capsule enclosing BOTH the Logo and Menu Options (div:nth-of-type(1)) */}
-        <div className="flex items-center gap-2.5 sm:gap-3.5 bg-white/55 backdrop-blur-md px-4 sm:px-5 py-2 sm:py-2.5 rounded-full border border-blue-200/70 shadow-[0_8px_30px_rgba(0,53,171,0.12)] transition-all duration-200">
-          {/* Official Uploaded Logo inside the transparent capsule (No border, no shadow) */}
+        {/* More Square, Full-Width Glass Panel enclosing BOTH the Logo and Menu Options (div:nth-of-type(1)) */}
+        <div className="flex-1 flex items-center justify-between gap-4 sm:gap-6 bg-white/60 hover:bg-white/75 backdrop-blur-md px-4 sm:px-7 py-2.5 sm:py-3 rounded-xl border border-blue-200/80 shadow-[0_8px_28px_rgba(0,53,171,0.10)] hover:shadow-[0_12px_34px_rgba(0,53,171,0.16)] transition-all duration-200">
+          {/* Official Uploaded Logo inside the square glass panel (No border, no shadow) */}
           <button
             onClick={() => handleTabClick('inicio')}
-            className="flex items-center group text-left cursor-pointer shrink-0 min-h-[38px] focus:outline-none border-0 shadow-none pr-1"
+            className="flex items-center group text-left cursor-pointer shrink-0 min-h-[38px] focus:outline-none border-0 shadow-none pr-2"
             aria-label="Ir al inicio de Fundación ULEP"
           >
             <div className="h-7 sm:h-8 w-24 sm:w-28 relative flex items-center justify-center border-0 shadow-none">
               <img
                 src={logoUlepBlue}
                 alt="Logo Fundación ULEP"
-                className="w-full h-full object-contain object-center group-hover:scale-[1.05] transition-transform duration-200 ease-out select-none border-0 shadow-none"
+                className="w-full h-full object-contain object-center group-hover:scale-[1.06] group-active:scale-95 transition-transform duration-200 ease-out select-none border-0 shadow-none"
               />
             </div>
           </button>
 
-          {/* Navigation Options inside the same transparent glass capsule */}
-          <div className="hidden md:flex items-center gap-1 lg:gap-1.5">
+          {/* Navigation Options with Smaller Font & Animated Hover/Active States */}
+          <div className="hidden md:flex items-center justify-end gap-1.5 lg:gap-2.5 flex-1">
             {navItems.map((item) => {
               const isActive = activeTab === item.id;
               return (
                 <button
                   key={item.id}
                   onClick={() => handleTabClick(item.id)}
-                  className={`relative px-4 lg:px-4.5 py-2 rounded-full text-xs font-display font-bold tracking-wide transition-all duration-150 ease-out cursor-pointer whitespace-nowrap min-h-[36px] ${
+                  className={`group relative px-3.5 lg:px-4 py-2 rounded-lg text-[10.5px] lg:text-[11px] font-display font-bold uppercase tracking-[0.1em] transition-all duration-150 ease-out cursor-pointer whitespace-nowrap min-h-[34px] active:scale-95 ${
                     isActive
-                      ? 'bg-[#0035ab] text-white shadow-[0_4px_14px_rgba(0,53,171,0.3)] scale-[1.02]'
-                      : 'text-[#001a57] hover:text-[#0035ab] hover:bg-white/70'
+                      ? 'bg-[#0035ab] text-white shadow-[0_4px_12px_rgba(0,53,171,0.28)] -translate-y-0.5'
+                      : 'text-[#001a57] hover:text-[#0035ab] hover:bg-white/80 hover:-translate-y-0.5'
                   }`}
                 >
-                  <span>{item.label}</span>
+                  <span className="relative z-10">{item.label}</span>
+                  {!isActive && (
+                    <span className="pointer-events-none absolute bottom-1 left-3 right-3 h-[2px] bg-[#0035ab] rounded-xs scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-center" />
+                  )}
                 </button>
               );
             })}
           </div>
         </div>
 
-        {/* Action Button (Campus Virtual in Glassy White & Blue with Micro-interaction) */}
-        <div className="hidden md:flex items-center gap-2.5 shrink-0">
+        {/* Action Button (More Square Campus Virtual Button with Smaller Font & Micro-animation) */}
+        <div className="hidden md:flex items-center shrink-0">
           <a
             href="https://groupulep.github.io/credito/"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-4 py-2 rounded-full bg-white/85 hover:bg-white backdrop-blur-xl text-[#002477] font-display font-extrabold text-xs transition-all duration-300 ease-out hover:-translate-y-0.5 shadow-[0_8px_24px_rgba(0,53,171,0.12)] hover:shadow-lg active:scale-95 flex items-center gap-2 cursor-pointer whitespace-nowrap min-h-[38px] border border-blue-200/80"
+            className="group px-4 lg:px-5 py-2.5 sm:py-3 rounded-xl bg-white/85 hover:bg-[#0035ab] text-[#002477] hover:text-white backdrop-blur-md font-display font-extrabold text-[10.5px] lg:text-[11px] uppercase tracking-[0.1em] transition-all duration-200 ease-out hover:-translate-y-0.5 shadow-[0_8px_24px_rgba(0,53,171,0.12)] hover:shadow-[0_10px_28px_rgba(0,53,171,0.25)] active:scale-95 flex items-center gap-2 cursor-pointer whitespace-nowrap min-h-[42px] border border-blue-200/80 hover:border-[#0035ab]"
           >
             <img
               src="https://img.icons8.com/fluency-systems-filled/48/0035ab/laptop.png"
               alt=""
-              className="w-4 h-4 shrink-0"
+              className="w-3.5 h-3.5 shrink-0 transition-transform duration-200 group-hover:scale-110 group-hover:brightness-0 group-hover:invert"
               referrerPolicy="no-referrer"
             />
             <span>Campus Virtual</span>
             <img
               src="https://img.icons8.com/fluency-systems-filled/48/0035ab/up-right.png"
               alt=""
-              className="w-3.5 h-3.5 shrink-0 transition-transform duration-300 group-hover:translate-x-0.5"
+              className="w-3 h-3 shrink-0 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:brightness-0 group-hover:invert"
               referrerPolicy="no-referrer"
             />
           </a>
         </div>
 
-        {/* Mobile Menu Button (Rounded Glass Pill) */}
+        {/* Mobile Menu Button (More Square Glass Button) */}
         <div className="flex items-center gap-2 md:hidden">
           <button
             type="button"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="px-3.5 py-1.5 rounded-full bg-white/60 hover:bg-white/80 backdrop-blur-xl text-[#001a57] border border-blue-200/80 shadow-sm transition-all duration-300 active:scale-95 cursor-pointer flex items-center gap-1.5 min-h-[36px]"
+            className="px-3.5 py-2 rounded-xl bg-white/65 hover:bg-white/85 backdrop-blur-md text-[#001a57] border border-blue-200/80 shadow-xs transition-all duration-150 active:scale-95 cursor-pointer flex items-center gap-1.5 min-h-[38px]"
             aria-label="Abrir menú de navegación"
             aria-expanded={isMobileMenuOpen}
           >
             {isMobileMenuOpen ? (
               <>
-                <span className="text-xs font-display font-extrabold text-[#001a57]">Cerrar</span>
+                <span className="text-[11px] font-display font-extrabold uppercase tracking-wider text-[#001a57]">Cerrar</span>
                 <img
                   src="https://img.icons8.com/fluency-systems-filled/48/0035ab/delete-sign.png"
                   alt=""
-                  className="w-4 h-4"
+                  className="w-3.5 h-3.5"
                   referrerPolicy="no-referrer"
                 />
               </>
             ) : (
               <>
-                <span className="text-xs font-display font-extrabold text-[#001a57]">Menú</span>
+                <span className="text-[11px] font-display font-extrabold uppercase tracking-wider text-[#001a57]">Menú</span>
                 <img
                   src="https://img.icons8.com/fluency-systems-filled/48/0035ab/menu.png"
                   alt=""
-                  className="w-4 h-4"
+                  className="w-3.5 h-3.5"
                   referrerPolicy="no-referrer"
                 />
               </>
@@ -190,20 +193,20 @@ export default function Navbar({ activeTab, onSelectTab }: NavbarProps) {
         </div>
       </div>
 
-      {/* Mobile Navigation Drawer (Floating Glass Card with Smooth Entrance Animation) */}
+      {/* Mobile Navigation Drawer (More Square Floating Glass Card with Smooth Entrance Animation) */}
       {isMobileMenuOpen && (
         <div
           id="panel-navegacion-desplegable"
-          className="mt-2.5 max-w-7xl mx-auto rounded-3xl bg-white/90 backdrop-blur-2xl border border-blue-200/80 shadow-[0_20px_50px_rgba(0,26,87,0.28)] z-[70] max-h-[82vh] overflow-y-auto px-5 py-5 flex flex-col gap-4 animate-fade-up"
+          className="mt-2.5 max-w-[96%] mx-auto rounded-xl bg-white/92 backdrop-blur-xl border border-blue-200/80 shadow-[0_20px_50px_rgba(0,26,87,0.28)] z-[70] max-h-[82vh] overflow-y-auto px-5 py-4 flex flex-col gap-3.5 animate-fade-up"
         >
           <div className="flex items-center justify-between pb-2 border-b border-blue-100/80">
-            <span className="text-[11px] font-display font-extrabold uppercase tracking-widest text-[#0035ab]">
+            <span className="text-[10px] font-display font-extrabold uppercase tracking-[0.18em] text-[#0035ab]">
               Menú Institucional
             </span>
             <button
               type="button"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="text-xs font-bold text-blue-700 hover:text-[#002477] px-2.5 py-1 rounded-full hover:bg-blue-50 transition-colors cursor-pointer flex items-center gap-1"
+              className="text-[11px] font-bold text-blue-700 hover:text-[#002477] px-2.5 py-1 rounded-lg hover:bg-blue-50 transition-colors cursor-pointer flex items-center gap-1"
             >
               <span>Cerrar</span>
               <img
@@ -222,15 +225,15 @@ export default function Navbar({ activeTab, onSelectTab }: NavbarProps) {
                 <button
                   key={item.id}
                   onClick={() => handleTabClick(item.id)}
-                  className={`text-left font-display font-bold py-3 px-4 rounded-2xl transition-all duration-300 flex items-center justify-between min-h-[46px] cursor-pointer ${
+                  className={`text-left font-display font-bold py-2.5 px-3.5 rounded-lg transition-all duration-150 flex items-center justify-between min-h-[42px] cursor-pointer ${
                     isActive
-                      ? 'bg-[#0035ab] text-white shadow-md shadow-[#0035ab]/25 translate-x-1'
+                      ? 'bg-[#0035ab] text-white shadow-sm shadow-[#0035ab]/25 translate-x-1'
                       : 'text-[#001a57] bg-blue-50/60 hover:bg-blue-100/80 hover:translate-x-1'
                   }`}
                 >
-                  <span className="text-sm font-bold">{item.label}</span>
+                  <span className="text-xs font-bold uppercase tracking-wider">{item.label}</span>
                   {isActive && (
-                    <span className="text-[10px] uppercase font-extrabold tracking-wider text-blue-100">
+                    <span className="text-[9px] uppercase font-extrabold tracking-wider text-blue-100">
                       Actual
                     </span>
                   )}
@@ -239,23 +242,23 @@ export default function Navbar({ activeTab, onSelectTab }: NavbarProps) {
             })}
           </div>
 
-          <div className="pt-3 border-t border-blue-100/80 space-y-2.5">
+          <div className="pt-2.5 border-t border-blue-100/80 space-y-2">
             <a
               href="https://groupulep.github.io/credito/"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="w-full py-3.5 rounded-2xl bg-[#002477] text-white font-display font-extrabold text-center hover:bg-[#0035ab] flex items-center justify-center gap-2 text-xs min-h-[44px] transition-all shadow-md"
+              className="w-full py-3 rounded-lg bg-[#002477] text-white font-display font-extrabold text-center hover:bg-[#0035ab] flex items-center justify-center gap-2 text-[11px] uppercase tracking-wider min-h-[42px] transition-all shadow-sm"
             >
               <img
                 src="https://img.icons8.com/fluency-systems-filled/48/ffffff/laptop.png"
                 alt=""
-                className="w-4 h-4"
+                className="w-3.5 h-3.5"
                 referrerPolicy="no-referrer"
               />
               <span>Ingresar al Campus Virtual</span>
             </a>
-            <p className="text-center text-[11px] text-blue-800/60 font-medium">
+            <p className="text-center text-[10px] text-blue-800/60 font-medium">
               Fundación ULEP · Educación para el Trabajo y Desarrollo Humano
             </p>
           </div>
